@@ -6,7 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from "@ionic/storage";
 import { HttpModule } from '@angular/http';
 
-
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { DatePipe } from "@angular/common";
@@ -14,8 +13,6 @@ import { UserProvider } from "../providers/user/user";
 import { Geolocation } from '@ionic-native/geolocation';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
-import { FirebaseProvider } from '../providers/firebase/firebase';
-
 
 @NgModule({
   declarations: [
@@ -26,13 +23,13 @@ import { FirebaseProvider } from '../providers/firebase/firebase';
     BrowserModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp({
-      apiKey: "AIzaSyAVOnXFPxLL7c9Xi0oUV7-8UxiTyxck2bM",
-      authDomain: "sirius-b77ba.firebaseapp.com",
-      databaseURL: "https://sirius-b77ba.firebaseio.com",
-      projectId: "sirius-b77ba",
-      storageBucket: "sirius-b77ba.appspot.com",
-      messagingSenderId: "54967610528"
+    AngularFireModule.initializeApp( {
+      apiKey: "AIzaSyBsaoO_dfCrgQ7jYXHMd11pIbo_PleicwI",
+      authDomain: "sirius-666.firebaseapp.com",
+      databaseURL: "https://sirius-666.firebaseio.com",
+      projectId: "sirius-666",
+      storageBucket: "sirius-666.appspot.com",
+      messagingSenderId: "178245427359"
     }),
     AngularFireDatabaseModule,
     HttpModule
@@ -49,9 +46,8 @@ import { FirebaseProvider } from '../providers/firebase/firebase';
     IonicStorageModule,
     DatePipe,
     UserProvider,
-    FirebaseProvider,
     Geolocation,
-    FirebaseProvider
+    UserProvider
   ]
 })
 export class AppModule {}
