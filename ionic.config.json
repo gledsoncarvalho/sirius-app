@@ -1,6 +1,10 @@
 {
   "name": "teste",
+<<<<<<< HEAD
   "app_id": "55c895e9",
+=======
+  "app_id": "50d69467",
+>>>>>>> e905d2984a60295f9ca77858c0c0198ac5f09c24
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

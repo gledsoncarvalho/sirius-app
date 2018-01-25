@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UserProvider, User } from "../../providers/user/user";
 
-
-
 @IonicPage()
 @Component({
   selector: 'page-edit-contact',
@@ -25,23 +23,19 @@ export class EditContactPage {
   }
 
   save() {
-    this.saveUser()
-      .then(() => {
+    this.saveUser().then(() => {
         this.toast.create({message: 'Usuário salvo!', duration: 3000, position: 'botton'}).present();
         this.navCtrl.pop();
-      })
-      .catch(() => {
+    }).catch(() => {
         this.toast.create({message: 'Erro ao salvar o usuário!', duration: 3000, position: 'botton'}).present();
-      })
-    
-
+    })
   }
 
   public saveUser() {
     if (this.key) {
       return this.userProvider.update("user", this.model);
     } else {
-        return this.userProvider.insert(this.model);
+      return this.userProvider.insert(this.model);
     }
   }
 }

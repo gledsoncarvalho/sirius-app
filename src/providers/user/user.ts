@@ -21,7 +21,7 @@ export class UserProvider {
   }
 
   private save(key: string, user: User){
-    return this.storage.set(key, user);
+    return this.storage.set('user', user);
   }
 
   public remove(key: string){

@@ -33,8 +33,7 @@ export class HomePage {
     private toast: ToastController, private storage: Storage,
     private geo: Geolocation, public navParams: NavParams, public db: AngularFireDatabase) {
 
-      this.storage.length()
-      .then((val) => {
+      this.storage.length().then((val) => {
         if (val == 0) {
           this.navCtrl.push('EditContactPage');
           console.log('Não há usuário:', val);
@@ -43,16 +42,13 @@ export class HomePage {
 
       this.ocorrencia = this.navParams.data.ocorrencia || { };
 
-
       this.fila_central = db.list('/fila_central/aguardando');
       this.ocorrencias = db.list('/ocorrencias');
-      console.log(this.fila_central);
 
     }
 
     ionViewDidEnter() {
-      this.userProvider.getAll()
-      .then(results => {
+      this.userProvider.getAll().then(results => {
         this.users = results;
       });
     }
@@ -103,34 +99,46 @@ export class HomePage {
       let data = new Date();
       console.log("Hora: " + data.getHours() + ":" + data.getMinutes());
 
-      let val;
-      this.geo.getCurrentPosition().then(pos => {
-        this.storage.get("user").then((val) => {
-          let ocorrencias = {
-            "contato" : {
-              "telefone" : val.telefone
-            },
-            "hora" : data.getHours() + ":" + data.getMinutes(),
-            "localizacao" : {
-              "lat" : pos.coords.latitude,
-              "lgt" : pos.coords.longitude,
-              "local" : "Paulistana",
-              "municipio" : "Paulistana",
-              "referencia" : "Do lado de..",
-              "zona" : "Urbana"
-            },
-            "paciente" : "Raimundo da banca",
-            "situacao" : "ABERTA",
-            "solicitante" : val.name,
-            "tipo" : "Padrão"
+      let pos = this.geo.getCurrentPosition().then(pos => {
+        return pos;
+      });
 
-          }
+      let user = this.storage.get("user").then(user => {
+        return user;
+      });
 
-          this.ocorrencias.push(ocorrencias).then((item) => {
-            console.log("Key: " + item.key);
-            this.fila_central.set(item.key, "true");
-          });
+      let ocs = this.ocorrencias;
+      let fc = this.fila_central;
+
+      Promise.all([pos, user, ocs, fc]).then(function(values) {
+        console.log(values);
+        console.log(ocs);
+        let ocorrencias = {
+          "contato" : {
+            "telefone" : values[1].telefone
+          },
+          "hora" : data.getHours() + ":" + data.getMinutes(),
+          "localizacao" : {
+            "lat" : values[0].coords.latitude,
+            "lgt" : values[0].coords.longitude,
+            "local" : "Paulistana",
+            "municipio" : "Paulistana",
+            "referencia" : "Do lado de..",
+            "zona" : "Urbana"
+          },
+          "paciente" : "Raimundo da banca",
+          "situacao" : "ABERTA",
+          "solicitante" : values[1].name,
+          "tipo" : "Padrão"
+        }
+        console.log(ocorrencias);
+
+        ocs.push(ocorrencias).then((item) => {
+          let key = item.key;
+          console.log("Key: " + item.key);
+          fc.set(item.key, "true");
         });
       });
+
     }
   }
