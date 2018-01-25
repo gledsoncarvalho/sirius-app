@@ -5,8 +5,6 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
 import { Storage } from "@ionic/storage";
 import { Geolocation } from '@ionic-native/geolocation';
 import { Observable } from "rxjs/Observable";
-
-//@comments: Adicionando uma nova dependência
 import { AngularFireDatabase} from 'angularfire2/database';
 
 @Component({
@@ -44,19 +42,19 @@ export class HomePage {
       });
 
       this.ocorrencia = this.navParams.data.ocorrencia || { };
-      this.fila_central = this.navParams.data.fila_central || { };
 
 
       this.fila_central = db.list('/fila_central/aguardando');
       this.ocorrencias = db.list('/ocorrencias');
+      console.log(this.fila_central);
 
     }
 
     ionViewDidEnter() {
       this.userProvider.getAll()
-        .then(results => {
-          this.users = results;
-        });
+      .then(results => {
+        this.users = results;
+      });
     }
 
     addUser() {
@@ -69,95 +67,71 @@ export class HomePage {
 
     removeUser(item: UserList) {
       this.userProvider.remove(item.key)
-        .then(() => {
-          let index = this.users.indexOf(item);
-          this.users.splice(index,1);
+      .then(() => {
+        let index = this.users.indexOf(item);
+        this.users.splice(index,1);
 
-          this.toast.create({message: 'Usuário removido.', duration: 3000, position: 'botton' }).present();
-        })
+        this.toast.create({message: 'Usuário removido.', duration: 3000, position: 'botton' }).present();
+      })
     }
 
     getLocation() {
       this.geo.getCurrentPosition()
-        .then(pos => {
-          this.lat = pos.coords.latitude;
-          this.lng = pos.coords.longitude;
-          console.log("LAt: " +JSON.stringify(this.lat) + "Long:" + JSON.stringify(this.lng));
-        })
-        .catch(err => console.log(err));
+      .then(pos => {
+        this.lat = pos.coords.latitude;
+        this.lng = pos.coords.longitude;
+        console.log("LAt: " +JSON.stringify(this.lat) + "Long:" + JSON.stringify(this.lng));
+      })
+      .catch(err => console.log(err));
 
-        let watch = this.geo.watchPosition();
-        watch.subscribe((data) => {
-          this.data = Date();
-          console.log("Data: "+ JSON.stringify(this.data));
-        });
+      let watch = this.geo.watchPosition();
+      watch.subscribe((data) => {
+        this.data = Date();
+        console.log("Data: "+ JSON.stringify(this.data));
+      });
     }
 
     onSubmit() {
 
+      this.geo.getCurrentPosition().then(pos => {
+        this.lat = pos.coords.latitude;
+        this.lng = pos.coords.longitude;
+      }).catch(
+        err => console.log(err)
+      );
+
+      let data = new Date();
+      console.log("Hora: " + data.getHours() + ":" + data.getMinutes());
+
+      let val;
+      this.geo.getCurrentPosition().then(pos => {
         this.storage.get("user").then((val) => {
-          let u = JSON.stringify(val);
-          console.log('Users', u);
-        });
-
-        this.geo.getCurrentPosition()
-          .then(pos => {
-          this.lat = pos.coords.latitude;
-          this.lng = pos.coords.longitude;
-        })
-        .catch(err => console.log(err));
-
-        let watch = this.geo.watchPosition();
-        watch.subscribe((data) => {
-          this.data = Date(); // Sabe como filtrar esse Date()? Está vindo uma carrada de informaç
-          console.log("Data: "+ this.data);
-        });
-
-      let ocorrencias = {
-            "atendimento" : {
-              "medico" : "ze",
-              "prioridade" : 4,
-              "ta_vivo" : true
-            },
-            "base" : "paulistana",
+          let ocorrencias = {
             "contato" : {
-              "telefone" : "(89)994174455"
+              "telefone" : val.telefone
             },
-            "deslocamento" : {
-              "saida" : "10:10"
-            },
-            "hora" : "5:00",
+            "hora" : data.getHours() + ":" + data.getMinutes(),
             "localizacao" : {
-              "lat" : -8.5829043,
-              "lgt" : -41.4177845,
-              "local" : "paulistana",
-              "municipio" : "paulistana",
+              "lat" : pos.coords.latitude,
+              "lgt" : pos.coords.longitude,
+              "local" : "Paulistana",
+              "municipio" : "Paulistana",
               "referencia" : "Do lado de..",
               "zona" : "Urbana"
             },
-            "paciente" : "adenildo de sousa",
+            "paciente" : "Raimundo da banca",
             "situacao" : "ABERTA",
-            "solicitante" : "Gabriel coelho glima",
-            "tipo" : "padrão"
+            "solicitante" : val.name,
+            "tipo" : "Padrão"
 
-        }
+          }
 
-        this.ocorrencias.push(ocorrencias).then((item) => {
-          console.log("Key: " + item.key);
-          this.chave_oco = item.key;
+          this.ocorrencias.push(ocorrencias).then((item) => {
+            let key = item.key;
+            console.log("Key: " + item.key);
+            this.fila_central.set(item.key, "true");
+          });
         });
-
-        console.log(this.ocorrencia);
-
-        let fila_central = {
-                  [this.chave_oco] : "true"
-      }
-
-
-
-        this.fila_central.push(fila_central).then((item) => {
-          console.log("KEY-fila: " + item.key);
-          this.fila_central.key = item.key;
-        });
+      });
     }
-}
+  }
