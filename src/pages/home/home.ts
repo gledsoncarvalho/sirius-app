@@ -127,7 +127,6 @@ export class HomePage {
           }
 
           this.ocorrencias.push(ocorrencias).then((item) => {
-            let key = item.key;
             console.log("Key: " + item.key);
             this.fila_central.set(item.key, "true");
           });
