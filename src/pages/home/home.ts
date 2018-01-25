@@ -35,12 +35,7 @@ export class HomePage {
     private toast: ToastController, private storage: Storage,
     private geo: Geolocation, public navParams: NavParams, public db: AngularFireDatabase) {
 
-      this.storage.length()
-      .then((val) => {
-        if (val == 0) {
-          this.navCtrl.push('EditContactPage');
-          console.log('Não há usuário:', val);
-        }
+      
       });
 
       this.ocorrencia = this.navParams.data.ocorrencia || { };

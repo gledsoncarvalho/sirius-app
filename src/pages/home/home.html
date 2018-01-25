@@ -1,45 +1,7 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Sirius
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  <ion-list>
-    <ion-card *ngFor="let item of users">
-      <ion-card-header>
-        <h1>Olá, {{ item.user.name }}</h1>
-      </ion-card-header>
-
-      <ion-card-content>
-        <button ion-button color="primary" (click)="onSubmit()">SOLICITAR</button>
-      </ion-card-content>
-
-        <ion-row text-center>
-        <ion-col>
-          <button ion-button icon-left (click)="editUser(item)">
-            <ion-icon name="create"></ion-icon>
-            <div>Editar</div>
-          </button>
-        </ion-col>
-        <ion-col>
-          <button ion-button icon-left (click)="removeUser(item)">
-            <ion-icon name="trash"></ion-icon>
-            <div>Excluir</div>
-          </button>
-        </ion-col>
-        <ion-col>
-          <a href="tel: {{ item.user.telefone }}" ion-button icon-left clear small (click)="removeUser(item)">
-            <ion-icon name="call"></ion-icon>
-            <div>Ligar</div>
-          </a>
-        </ion-col>
-        <p>{{ data }}</p>
-      </ion-row>
-    </ion-card>
-
-
-  </ion-list>
+<ion-content padding class="body">
+<ion-img class="logo" src="assets/imgs/logo.png"></ion-img>
+    <ion-col *ngFor="let item of users">
+        <h1 class="title_home">Olá, {{ item.user.name }}</h1>
+        <button class="btn" ion-button color="primary" (click)="onSubmit()">SOLICITAR</button>
+    </ion-col>
 </ion-content>

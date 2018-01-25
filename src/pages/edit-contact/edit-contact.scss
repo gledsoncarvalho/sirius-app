@@ -1,3 +1,34 @@
 page-edit-contact {
+ .body {
+   
+    background: url(../../assets/imgs/background.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    
+    }
+ .logo{
+	 width:230px; 
+	 height: 110px;
+	 background: transparent;
+	 margin-bottom: 30px;
+	 margin-left: 20px;
+	 margin-top:30px;
+
+ }  
+ .box_input{
+ margin-bottom: 10px;
+ background: none;
+ font-size: 18px;
+ color:white;
+ }
+
+ .btn{
+	 margin-top: 80px;
+	 width: 90%;
+	 margin-left: 5%;
+	 padding: 25px;
+	 background-color:#f03d2c; 
+ }
 
 }
