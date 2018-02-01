@@ -6,6 +6,7 @@ import { Storage } from "@ionic/storage";
 import { Geolocation } from '@ionic-native/geolocation';
 import { Observable } from "rxjs/Observable";
 import { AngularFireDatabase} from 'angularfire2/database';
+import { LoadingController } from "ionic-angular";
 
 @Component({
   selector: 'page-home',
@@ -28,10 +29,13 @@ export class HomePage {
   ocorrencias;
   filas_centrais;
   chave_oco: any;
+  af;
+  t;
+  status: any;
 
   constructor(public navCtrl: NavController, private userProvider: UserProvider,
     private toast: ToastController, private storage: Storage,
-    private geo: Geolocation, public navParams: NavParams, public db: AngularFireDatabase) {
+    private geo: Geolocation, public navParams: NavParams, public db: AngularFireDatabase, public loadingCtrl: LoadingController) {
 
       this.storage.length().then((val) => {
         if (val == 0) {
@@ -44,7 +48,26 @@ export class HomePage {
 
       this.fila_central = db.list('/fila_central/aguardando');
       this.ocorrencias = db.list('/ocorrencias');
+      this.af = db.database.ref();
+      this.t = this.af.child("/ocorrencias");
+    }
 
+
+    presentLoadingText(key: any) {
+      let loading = this.loadingCtrl.create({
+        spinner: 'hide',
+        content: 'Loading Please Wait...'
+      });
+    
+      loading.present();
+    
+      setTimeout(() => {
+        this.navCtrl.push('LoaderPage');
+      }, 1000);
+    
+      setTimeout(() => {
+        loading.dismiss();
+      }, 5000);
     }
 
     ionViewDidEnter() {
@@ -106,11 +129,12 @@ export class HomePage {
       let user = this.storage.get("user").then(user => {
         return user;
       });
-
+      let tes = this.t;
       let ocs = this.ocorrencias;
       let fc = this.fila_central;
+      let st;
 
-      Promise.all([pos, user, ocs, fc]).then(function(values) {
+      Promise.all([pos, user, ocs, fc, tes]).then(function(values) {
         console.log(values);
         console.log(ocs);
         let ocorrencias = {
@@ -137,8 +161,22 @@ export class HomePage {
           let key = item.key;
           console.log("Key: " + item.key);
           fc.set(item.key, "true");
+
+
+          tes.on("child_changed", function(snapshot) {
+            let changedPost = snapshot.val();
+            console.log("Situação: " + JSON.stringify(changedPost.situacao));
+            st = JSON.stringify(changedPost.situacao);
+            console.log("ST: " + st);
+
+            let x = this.db.database.ref().child('/ocorrencias/' + item.key);
+            x.on('child_changed'),function(snapshot) {
+              st = snapshot.val().situacao;
+              
+            }
+          })
         });
       });
-
+      
     }
   }
