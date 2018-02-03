@@ -7,17 +7,20 @@ import { IonicStorageModule } from "@ionic/storage";
 import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { DatePipe } from "@angular/common";
 import { UserProvider } from "../providers/user/user";
 import { Geolocation } from '@ionic-native/geolocation';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 
+import { HomePage } from '../pages/home/home';
+import { StatusPage } from '../pages/status/status';
+
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    StatusPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    StatusPage
   ],
   providers: [
     StatusBar,

@@ -1,5 +1,3 @@
-page-home {
-
 .body {
    
     background: url(../../assets/imgs/background.jpg) no-repeat center center fixed; 
@@ -7,20 +5,25 @@ page-home {
     -moz-background-size: cover;
     background-size: cover;
     
-    }
- .logo{
-	 width:230px; 
-	 height: 110px;
-	 background: transparent;
-	 margin-bottom: 30px;
-	 margin-left: 20px;
-	 margin-top:30px;
+}
 
- }  
+.logo{
+	width:230px; 
+	height: 110px;
+	background: transparent;
+	margin-bottom: 30px;
+	margin-left: 20px;
+	margin-top:30px;
+
+}  
+
+page-home {
+
  .title_home{
  	text-align:center;
  	color:white;
  }
+
  .btn{
 	 margin-top: 80px;
 	 width: 90%;
@@ -28,7 +31,5 @@ page-home {
 	 padding: 25px;
 	 background-color:#f03d2c; 
  }
-
-
 
 }
