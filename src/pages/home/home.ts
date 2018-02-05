@@ -92,7 +92,7 @@ export class HomePage {
         "zona" : "Urbana"
       },
       "paciente" : "Raimundo da banca",
-      "situacao" : "ABERTA",
+      "situacao" : "fila_central",
       "solicitante" : user.name,
       "tipo" : "Padrão"
     }
