@@ -7,14 +7,27 @@
     
 }
 
+.center{
+	width: 100%; 
+	text-align:center;
+}
+
 .logo{
-	width:230px; 
-	height: 110px;
+	width:90%; 
+	height: 130px;
 	background: transparent;
-	margin-bottom: 30px;
-	margin-left: 20px;
+	margin-bottom: 60px;
+	margin-left:5%;
 	margin-top:30px;
 
+}
+.footer{
+	width:35%; 
+	height: 50px;
+	background: transparent;
+	margin-left:32.5%;
+	margin-top:15%;
+	
 }  
 
 page-home {
@@ -22,14 +35,23 @@ page-home {
  .title_home{
  	text-align:center;
  	color:white;
+ 	font-size:25px;
  }
 
  .btn{
-	 margin-top: 80px;
-	 width: 90%;
-	 margin-left: 5%;
-	 padding: 25px;
-	 background-color:#f03d2c; 
+	 margin-top:20px;
+	 width: 120px;
+	 height:120px;
+	 border-radius:60px;
+	 background-color:#f03d2c; opacity:none;
+ }
+
+ .line{
+ 	margin-top: 30px;
+ 	border:1px solid white;
+  	width: 60%;
+  	color:white;
+  	opacity:0.6;
  }
 
 }

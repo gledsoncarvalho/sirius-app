@@ -2,10 +2,14 @@
 <ion-img class="logo" src="assets/imgs/logo.png"></ion-img>
     <ion-col *ngFor="let item of users">
         <h1 class="title_home">Olá, {{ item.user.name }}</h1>
-        <button class="btn" ion-button color="primary" (click)="onSubmit()">SOLICITAR{{status}}</button>
-        <!-- <button ion-button icon-left (click)="removeUser(item)">
-            <ion-icon name="trash"></ion-icon>
-            <div>Excluir</div>
-        </button> -->
+        <hr class="line">
+        <div class="center">
+	        <button class="btn" ion-button color="primary" (click)="onSubmit()">SOLICITAR{{status}}</button>
+	        <!-- <button ion-button icon-left (click)="removeUser(item)">
+	            <ion-icon name="trash"></ion-icon>
+	            <div>Excluir</div>
+	        </button> -->
+	    </div>  
+	    <hr class="line">  
     </ion-col>
 </ion-content>
