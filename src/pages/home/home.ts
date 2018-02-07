@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { UserProvider, User, UserList } from "../../providers/user/user";
+import { NavController} from 'ionic-angular';
+import { UserProvider, UserList } from "../../providers/user/user";
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { Storage } from "@ionic/storage";
 import { Geolocation } from '@ionic-native/geolocation';
-import { Observable } from "rxjs/Observable";
 import { AngularFireDatabase} from 'angularfire2/database';
 import { LoadingController } from "ionic-angular";
 import { StatusPage } from '../status/status';

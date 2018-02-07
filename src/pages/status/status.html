@@ -1,6 +1,16 @@
 <ion-content padding class="body">
-  <ion-img class="logo" src="assets/imgs/logo.png"></ion-img>
-  <div class="status">
-    <img class="status-img" src="../../assets/imgs/steps/{{(status | async)?.situacao}}.png"/>
-  </div>  
+
+	<div style="width: 100%">
+		<ion-img class="accept" src="assets/imgs/accept.png"></ion-img>
+	</div>
+	<div class="status-text">
+		<font> Status da Ocorrência</font>
+		<hr style=" border:1px solid white; width: 90%">
+	</div>
+  	<div class="status">
+    	<img class="status-img" src="../../assets/imgs/steps/{{(status | async)?.situacao}}.png"/>
+  	</div>  
+  	<div style="width: 100%">
+		<ion-img class="footer" src="assets/imgs/logo.png"></ion-img>
+	</div>
 </ion-content>
