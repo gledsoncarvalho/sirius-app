@@ -44,10 +44,6 @@ export class HomePage {
     this.navCtrl.push('EditContactPage');
   }
 
-  editUser(item: UserList) {
-    this.navCtrl.push('EditContactPage', { key: item.key, user: item.user});
-  }
-
   removeUser(item: UserList) {
     this.userProvider.remove(item.key)
     .then(() => {
